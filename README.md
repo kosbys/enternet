@@ -29,4 +29,4 @@ A full stack social media web application
 ##### Considerations
 
 - What hosts to use
-- Post and profile visibility settings?
+- Post and profile visibility settings
