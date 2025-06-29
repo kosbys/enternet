@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import errorHandler from "./middlewares/errorHandler.js";
 import notFoundHandler from "./middlewares/notFoundHandler.js";
+import userRouter from "./routes/authRouter.js";
+import authRouter from "./routes/authRouter.js";
 
 const PORT = process.env.PORT || 3000;
 
@@ -14,6 +16,8 @@ app.get("/", (req, res) => {
   res.json("Hello from server");
 });
 
+app.use("/auth", authRouter);
+app.use("/users", userRouter);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
