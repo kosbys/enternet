@@ -1,9 +1,9 @@
 import bcrypt from "bcryptjs";
 
-export default function encryptPassword(password) {
+export const encryptPassword = (password) => {
   return bcrypt.hashSync(password, 10);
-}
+};
 
-export default function comparePasswords(password, hashedPassword) {
+export const comparePasswords = (password, hashedPassword) => {
   return bcrypt.compare(password, hashedPassword);
-}
+};

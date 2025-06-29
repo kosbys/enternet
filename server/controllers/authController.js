@@ -1,5 +1,14 @@
-import encryptPassword from "../utils/password";
+import { pool } from "../db";
 
-export default function register(name, email, password) {}
+// CHECK DUPES
+export const register = (name, email, password) => {
+  const { name, email, password } = req.body;
 
-export default function rogin(name, email, password) {}
+  pool.query();
+};
+
+export const login = (name, email, password) => {
+  const { name, email, password } = req.body;
+
+  pool.query();
+};
