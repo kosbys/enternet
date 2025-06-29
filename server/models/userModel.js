@@ -1,5 +1,4 @@
 import { pool } from "../db";
-import encryptPassword from "../utils/auth";
 
 export const getAllUsers = async () => {
   const results = await pool.query("SELECT id, name, email FROM users");
@@ -13,16 +12,4 @@ export const getUserById = async (id) => {
   );
 
   return result.rows[0];
-};
-
-export const createUser = async ({ name, email, password }) => {
-  const hashedPassword = await encryptPassword(password);
-
-  const result = await pool.query(
-    `INSERT INTO users (name, email, password) VALUES (${name}, ${email}, ${hashedPassword}) RETURNING *`
-  );
-
-  const { password: _, ...userDetails } = result.rows[0];
-
-  return userDetails;
 };

@@ -14,9 +14,3 @@ export const getUser = (req, res, next) => {
     })
     .catch((err) => next(err));
 };
-
-export const createUser = (req, res, next) => {
-  UserModel.createUser(req.body)
-    .then((newUser) => res.status(201).json(newUser))
-    .catch((err) => next(err));
-};
