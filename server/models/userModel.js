@@ -1,4 +1,4 @@
-import { pool } from "../db";
+import { pool } from "../database/db.js";
 
 export const getAllUsers = async () => {
   const results = await pool.query("SELECT id, name, email FROM users");

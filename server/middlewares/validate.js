@@ -6,11 +6,13 @@ const schema = Joi.object({
   password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{6,100}$")),
 });
 
-const registerSchema = schema.fork(["name, email"], (field) =>
+const registerSchema = schema.fork(["name", "email", "password"], (field) =>
   field.required()
 );
 
-const loginSchema = schema.or("name, email");
+const loginSchema = schema
+  .fork(["password"], (field) => field.required())
+  .or("name", "email");
 
 export const validateRegister = (req, res, next) => {
   const { name, email, password } = req.body;

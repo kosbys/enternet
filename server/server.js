@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import errorHandler from "./middlewares/errorHandler.js";
 import notFoundHandler from "./middlewares/notFoundHandler.js";
-import userRouter from "./routes/authRouter.js";
+import userRouter from "./routes/userRouter.js";
 import authRouter from "./routes/authRouter.js";
 
 const PORT = process.env.PORT || 3000;
