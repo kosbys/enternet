@@ -1,6 +1,8 @@
 import { pool } from "../database/db.js";
 import { encryptPassword } from "../utils/password.js";
 
+// change to then()
+
 export const findUserLogin = async (nameOrEmail) => {
   const query = `SELECT id, name, email FROM users where name = $1 OR email = $1 LIMIT 1`;
 
