@@ -15,22 +15,42 @@ export default function Register() {
   const onSubmit: SubmitHandler<LoginForm> = () => {};
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          type="text"
-          placeholder="שם משתמש או אימייל"
-          {...register("nameOrEmail")}
-        />
-        <Input type="password" placeholder="סיסמה" {...register("password")} />
-        <Button text="התחבר/י" />
-      </form>
-      <Link
-        className="link underline mt-4 p-2 border rounded-lg bg-blue-500 text-white"
-        to={"/auth/register"}
-      >
-        אין לך חשבון? הרשמ\י
-      </Link>
+    <div className="flex items-center justify-center h-screen">
+      <div className="flex place-self-center gap-4">
+        <img
+          className="w-75 pb-5"
+          src="https://allgood.org.il/wp-content/uploads/2021/06/ENTER-%D7%9C%D7%90%D7%AA%D7%A8-2-1024x900.jpg"
+        ></img>
+        <div className="gap-4">
+          <form
+            className="flex flex-col w-62 gap-3"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <Input
+              type="text"
+              placeholder="בן אדם"
+              label="שם משתמש או אימייל"
+              {...register("nameOrEmail", { required: true })}
+            />
+            <Input
+              type="password"
+              label="סיסמה"
+              placeholder="סיסמה"
+              {...register("password", { required: true })}
+            />
+            <Button text="התחבר/י" />
+          </form>
+          <div className="flex items-center justify-center pt-2 gap-1">
+            <p>אין לך חשבון?</p>
+            <Link
+              className="link text-blue-500 hover:text-blue-700"
+              to={"/auth/register"}
+            >
+              הרשמה
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
