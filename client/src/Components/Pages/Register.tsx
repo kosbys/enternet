@@ -10,9 +10,17 @@ type RegisterForm = {
   passwordConfirm: string;
 };
 
+/* /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/. EMAIL REGEX */
+
 // ADD VALIDATION, ERRORS
+// watch every input to meet conditions to enable button, button disabled when form is invalid
+// error object will be above the login prompt
 export default function Register() {
-  const { register, handleSubmit } = useForm<RegisterForm>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterForm>();
 
   const onSubmit: SubmitHandler<RegisterForm> = () => {};
 
@@ -27,6 +35,7 @@ export default function Register() {
         </div>
         <div className="gap-4">
           <form
+            noValidate
             className="flex flex-col w-62 gap-3"
             onSubmit={handleSubmit(onSubmit)}
           >
@@ -34,10 +43,14 @@ export default function Register() {
               type="text"
               placeholder="בן אדם"
               label="שם משתמש"
-              {...register("name", { required: true })}
+              {...register("name", {
+                required: true,
+                minLength: 3,
+                maxLength: 255,
+              })}
             />
             <Input
-              type="text"
+              type="email"
               placeholder="ben@adam.com"
               label="אימייל"
               {...register("email", { required: true })}

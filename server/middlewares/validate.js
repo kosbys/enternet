@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 const schema = Joi.object({
-  name: Joi.string().alphanum().min(3).max(100),
+  name: Joi.string().alphanum().min(3).max(255),
   email: Joi.string().email(),
   password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{6,100}$")),
 });

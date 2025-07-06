@@ -10,7 +10,11 @@ type LoginForm = {
 
 // ADD VALIDATION, ERRORS
 export default function Login() {
-  const { register, handleSubmit } = useForm<LoginForm>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginForm>();
 
   const onSubmit: SubmitHandler<LoginForm> = () => {};
 
@@ -25,6 +29,7 @@ export default function Login() {
         </div>
         <div className="gap-4">
           <form
+            noValidate
             className="flex flex-col w-62 gap-3"
             onSubmit={handleSubmit(onSubmit)}
           >
