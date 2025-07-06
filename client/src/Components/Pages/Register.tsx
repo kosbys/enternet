@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import Button from "../Button";
 import Input from "../Input";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { validatePassword } from "../../helpers/helpers";
 
 type RegisterForm = {
   name: string;
@@ -10,17 +11,13 @@ type RegisterForm = {
   passwordConfirm: string;
 };
 
-/* /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/. EMAIL REGEX */
-
-// ADD VALIDATION, ERRORS
-// watch every input to meet conditions to enable button, button disabled when form is invalid
-// error object will be above the login prompt
+// ADD AXIOS
 export default function Register() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<RegisterForm>();
+    formState: { errors, isValid },
+  } = useForm<RegisterForm>({ mode: "onChange" });
 
   const onSubmit: SubmitHandler<RegisterForm> = () => {};
 
@@ -53,22 +50,40 @@ export default function Register() {
               type="email"
               placeholder="ben@adam.com"
               label="אימייל"
-              {...register("email", { required: true })}
+              {...register("email", {
+                required: true,
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Invalid email format",
+                },
+              })}
             />
             <Input
               type="password"
               label="סיסמה"
               placeholder="סיסמה"
-              {...register("password", { required: true })}
+              {...register("password", {
+                required: true,
+                validate: validatePassword,
+              })}
             />
             <Input
               type="password"
               label="אימות סיסמה"
               placeholder="סיסמה"
-              {...register("passwordConfirm", { required: true })}
+              {...register("passwordConfirm", {
+                required: true,
+                validate: validatePassword,
+              })}
             />
-            <Button text="הרשמ\י" />
+            <Button disabled={!isValid} text="הרשמ\י" />
           </form>
+
+          {errors.root && (
+            <div className="error">
+              <p>{errors.root.message}</p>
+            </div>
+          )}
           <div className="flex items-center justify-center pt-2 gap-1">
             <p>יש לך חשבון?</p>
             <Link
