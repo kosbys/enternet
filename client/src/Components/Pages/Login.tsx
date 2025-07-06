@@ -9,18 +9,20 @@ type LoginForm = {
 };
 
 // ADD VALIDATION, ERRORS
-export default function Register() {
+export default function Login() {
   const { register, handleSubmit } = useForm<LoginForm>();
 
   const onSubmit: SubmitHandler<LoginForm> = () => {};
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="flex place-self-center gap-4">
-        <img
-          className="w-75 pb-5"
-          src="https://allgood.org.il/wp-content/uploads/2021/06/ENTER-%D7%9C%D7%90%D7%AA%D7%A8-2-1024x900.jpg"
-        ></img>
+      <div className="flex gap-4">
+        <div className="image place-self-center">
+          <img
+            className="w-75 pb-5"
+            src="https://allgood.org.il/wp-content/uploads/2021/06/ENTER-%D7%9C%D7%90%D7%AA%D7%A8-2-1024x900.jpg"
+          ></img>
+        </div>
         <div className="gap-4">
           <form
             className="flex flex-col w-62 gap-3"

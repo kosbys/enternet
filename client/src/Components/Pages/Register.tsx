@@ -54,7 +54,7 @@ export default function Register() {
               placeholder="סיסמה"
               {...register("passwordConfirm", { required: true })}
             />
-            <Button text="התחבר/י" />
+            <Button text="הרשמ\י" />
           </form>
           <div className="flex items-center justify-center pt-2 gap-1">
             <p>יש לך חשבון?</p>
