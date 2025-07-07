@@ -8,9 +8,11 @@ export default function Login() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<LoginForm>();
 
+  // USE LOGIN AUTH
   const onSubmit = (formData: LoginForm) => {
     console.log(formData);
   };

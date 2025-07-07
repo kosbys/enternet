@@ -21,9 +21,9 @@ type RegisterForm = {
 type AuthContextType = {
   user: User | null;
   isAuthenticated: boolean;
-  register: (formData: RegisterForm) => Promise<void>;
-  login: (formData: LoginForm) => Promise<void>;
-  logout: () => Promise<void>;
+  handleRegister: (formData: RegisterForm) => Promise<void>;
+  handleLogin: (formData: LoginForm) => Promise<void>;
+  handleLogout: () => Promise<void>;
   loading: boolean;
   error: string | null;
 };

@@ -20,7 +20,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const register = (formData: RegisterForm) => {
+  const handleRegister = (formData: RegisterForm) => {
     setLoading(true);
     setError(null);
 
@@ -38,7 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
   };
 
-  const login = (formData: LoginForm) => {
+  const handleLogin = (formData: LoginForm) => {
     setLoading(true);
     setError(null);
 
@@ -56,7 +56,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
   };
 
-  const logout = () => {
+  const handleLogout = () => {
     return api
       .post("/auth/logout")
       .then(() => {
@@ -70,9 +70,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const value: AuthContextType = {
     user,
     isAuthenticated: !!user,
-    register,
-    login,
-    logout,
+    handleRegister,
+    handleLogin,
+    handleLogout,
     loading,
     error,
   };

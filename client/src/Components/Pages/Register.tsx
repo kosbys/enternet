@@ -53,6 +53,10 @@ export default function Register() {
                 {...register("email", {
                   required: "אימייל חסר",
                   maxLength: 255,
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: "נא להזין אימייל תקין",
+                  },
                 })}
               />
               {errors.email && (
@@ -67,7 +71,9 @@ export default function Register() {
                 placeholder="סיסמה"
                 {...register("password", {
                   required: "סיסמה חסרה",
-                  validate: validatePassword,
+                  validate: {
+                    isStrongPassword: validatePassword,
+                  },
                 })}
               />
               {errors.password && (
@@ -82,11 +88,14 @@ export default function Register() {
                 placeholder="סיסמה"
                 {...register("passwordConfirm", {
                   required: "סיסמה חסרה",
-                  validate: confirmPasswordsMatch(getValues),
+                  validate: {
+                    isStrongPassword: validatePassword,
+                    matches: confirmPasswordsMatch(getValues),
+                  },
                 })}
               />
-              {errors.password && (
-                <p className="text-red-600">{errors.password.message}</p>
+              {errors.passwordConfirm && (
+                <p className="text-red-600">{errors.passwordConfirm.message}</p>
               )}
             </div>
             <Button disabled={!isValid} text="הרשמ\י" />
