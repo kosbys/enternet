@@ -1,14 +1,9 @@
 import { Link } from "react-router";
 import Button from "../Button";
-import Input from "../Input";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { validatePassword } from "../../helpers/helpers";
+import type { LoginForm } from "../../types";
 
-type LoginForm = {
-  nameOrEmail: string;
-  password: string;
-};
-
-// ADD VALIDATION, ERRORS
 export default function Login() {
   const {
     register,
@@ -16,7 +11,9 @@ export default function Login() {
     formState: { errors },
   } = useForm<LoginForm>();
 
-  const onSubmit: SubmitHandler<LoginForm> = () => {};
+  const onSubmit = (formData: LoginForm) => {
+    console.log(formData);
+  };
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -29,24 +26,42 @@ export default function Login() {
         </div>
         <div className="gap-4">
           <form
-            noValidate
             className="flex flex-col w-62 gap-3"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <Input
-              type="text"
-              placeholder="בן אדם"
-              label="שם משתמש או אימייל"
-              {...register("nameOrEmail", { required: true })}
-            />
-            <Input
-              type="password"
-              label="סיסמה"
-              placeholder="סיסמה"
-              {...register("password", { required: true })}
-            />
-            <Button text="התחבר/י" />
+            <div>
+              <label htmlFor="nameOrEmail">שם או אימייל</label>
+              <input
+                className="w-full p-1 rounded-xl outline-gray-300 outline-1"
+                type="text"
+                placeholder="בן אדם"
+                {...register("nameOrEmail", {
+                  required: "שם חסר",
+                  maxLength: 255,
+                })}
+              />
+              {errors.nameOrEmail && (
+                <p className="text-red-500">{errors.nameOrEmail.message}</p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="password">סיסמה</label>
+              <input
+                className="w-full p-1 rounded-xl outline-gray-300 outline-1"
+                type="password"
+                placeholder="סיסמה"
+                {...register("password", {
+                  required: "סיסמה חסרה",
+                  validate: validatePassword,
+                })}
+              />
+              {errors.password && (
+                <p className="text-red-600">{errors.password.message}</p>
+              )}
+            </div>
+            <Button text="הרשמ\י" />
           </form>
+
           <div className="flex items-center justify-center pt-2 gap-1">
             <p>אין לך חשבון?</p>
             <Link

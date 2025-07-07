@@ -1,12 +1,12 @@
 type ButtonProps = {
   text: string;
-  disabled: boolean;
+  disabled?: boolean;
 };
 
-export default function Button({ text, disabled }: ButtonProps) {
+export default function Button({ text }: ButtonProps) {
   return (
     <button
-      disabled={disabled}
+      type="submit"
       className="cursor-pointer border rounded-xl bg-blue-500 hover:bg-blue-700 py-2 px-4 text-white"
     >
       {text}

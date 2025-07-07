@@ -6,14 +6,26 @@ type User = {
   email: string;
 };
 
+type LoginForm = {
+  nameOrEmail: string;
+  password: string;
+};
+
+type RegisterForm = {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+};
+
 type AuthContextType = {
   user: User | null;
   isAuthenticated: boolean;
-  register: (name: string, email: string, password: string) => Promise<void>;
-  login: (nameOrEmail: string, password: string) => Promise<void>;
+  register: (formData: RegisterForm) => Promise<void>;
+  login: (formData: LoginForm) => Promise<void>;
   logout: () => Promise<void>;
   loading: boolean;
   error: string | null;
 };
 
-export type { User, AuthContextType };
+export type { User, RegisterForm, LoginForm, AuthContextType };

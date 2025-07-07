@@ -1,20 +1,13 @@
 import { Link } from "react-router";
 import Button from "../Button";
-import Input from "../Input";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { validatePassword } from "../../helpers/helpers";
+import { confirmPasswordsMatch, validatePassword } from "../../helpers/helpers";
+import type { RegisterForm } from "../../types";
 
-type RegisterForm = {
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-};
-
-// ADD AXIOS
 export default function Register() {
   const {
     register,
+    getValues,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<RegisterForm>({ mode: "onChange" });
@@ -36,54 +29,69 @@ export default function Register() {
             className="flex flex-col w-62 gap-3"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <Input
-              type="text"
-              placeholder="בן אדם"
-              label="שם משתמש"
-              {...register("name", {
-                required: true,
-                minLength: 3,
-                maxLength: 255,
-              })}
-            />
-            <Input
-              type="email"
-              placeholder="ben@adam.com"
-              label="אימייל"
-              {...register("email", {
-                required: true,
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Invalid email format",
-                },
-              })}
-            />
-            <Input
-              type="password"
-              label="סיסמה"
-              placeholder="סיסמה"
-              {...register("password", {
-                required: true,
-                validate: validatePassword,
-              })}
-            />
-            <Input
-              type="password"
-              label="אימות סיסמה"
-              placeholder="סיסמה"
-              {...register("passwordConfirm", {
-                required: true,
-                validate: validatePassword,
-              })}
-            />
+            <div>
+              <label htmlFor="name">שם</label>
+              <input
+                className="w-full p-1 rounded-xl outline-gray-300 outline-1"
+                type="text"
+                placeholder="בן אדם"
+                {...register("name", {
+                  required: "שם חסר",
+                  maxLength: 255,
+                })}
+              />
+              {errors.name && (
+                <p className="text-red-500">{errors.name.message}</p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="name">אימייל</label>
+              <input
+                className="w-full p-1 rounded-xl outline-gray-300 outline-1"
+                type="email"
+                placeholder="בן אדם"
+                {...register("email", {
+                  required: "אימייל חסר",
+                  maxLength: 255,
+                })}
+              />
+              {errors.email && (
+                <p className="text-red-500">{errors.email.message}</p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="password">סיסמה</label>
+              <input
+                className="w-full p-1 rounded-xl outline-gray-300 outline-1"
+                type="password"
+                placeholder="סיסמה"
+                {...register("password", {
+                  required: "סיסמה חסרה",
+                  validate: validatePassword,
+                })}
+              />
+              {errors.password && (
+                <p className="text-red-600">{errors.password.message}</p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="password">אימות סיסמה</label>
+              <input
+                className="w-full p-1 rounded-xl outline-gray-300 outline-1"
+                type="password"
+                placeholder="סיסמה"
+                {...register("passwordConfirm", {
+                  required: "סיסמה חסרה",
+                  validate: confirmPasswordsMatch(getValues),
+                })}
+              />
+              {errors.password && (
+                <p className="text-red-600">{errors.password.message}</p>
+              )}
+            </div>
             <Button disabled={!isValid} text="הרשמ\י" />
           </form>
 
-          {errors.root && (
-            <div className="error">
-              <p>{errors.root.message}</p>
-            </div>
-          )}
           <div className="flex items-center justify-center pt-2 gap-1">
             <p>יש לך חשבון?</p>
             <Link
