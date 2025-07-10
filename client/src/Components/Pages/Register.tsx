@@ -8,11 +8,14 @@ export default function Register() {
   const {
     register,
     getValues,
+    reset,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<RegisterForm>({ mode: "onChange" });
+  } = useForm<RegisterForm>({ mode: "onSubmit" });
 
-  const onSubmit: SubmitHandler<RegisterForm> = () => {};
+  const onSubmit: SubmitHandler<RegisterForm> = (formData: RegisterForm) => {
+    console.log(formData);
+  };
 
   return (
     <div className="flex items-center justify-center h-screen">

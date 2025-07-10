@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import Button from "../Button";
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { validatePassword } from "../../helpers/helpers";
 import type { LoginForm } from "../../types";
 
@@ -9,11 +9,14 @@ export default function Login() {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
-  } = useForm<LoginForm>();
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginForm>({ mode: "onSubmit" });
+
+  const FieldError = ({ name }: { name: keyof LoginForm }) => {};
 
   // USE LOGIN AUTH
-  const onSubmit = (formData: LoginForm) => {
+  const onSubmit: SubmitHandler<LoginForm> = (formData: LoginForm) => {
     console.log(formData);
   };
 
@@ -57,9 +60,6 @@ export default function Login() {
                   validate: validatePassword,
                 })}
               />
-              {errors.password && (
-                <p className="text-red-600">{errors.password.message}</p>
-              )}
             </div>
             <Button text="הרשמ\י" />
           </form>
